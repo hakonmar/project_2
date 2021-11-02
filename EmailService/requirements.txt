@@ -1,0 +1,2 @@
+dotenv == 0.0.1
+yagmail == 0.14
