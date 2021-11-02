@@ -1,15 +1,33 @@
 version: "3.8"
 services:
-  message-api:
-    build: ./MessageApi
+  order-service:
+    build: ./OrderService
     volumes:
-      - ./MessageApi:/app/Api
+      - ./OrderService:/app/order
     depends_on:
     - rabbitmq
 
-  message-processsor:
+  payment-service:
     volumes:
-      - ./MessageProcessor:/app/Processor
+      - ./PaymentService:/app/payment
+
+  merchant-service:
+    volumes:
+      - ./MerchantService:/app/merchant
+
+  inventory-service:
+    volumes:
+      - ./InventoryService:/app/inventory
+
+  email-service:
+    volumes:
+      - ./EmailService:/app/email
+    depends_on:
+      - yagmail
+
+  buyer-service:
+    volumes:
+      - ./BuyerService:/app/buyer
 
   rabbitmq:
     - rabbitmq-management
