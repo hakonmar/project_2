@@ -11,8 +11,8 @@ class EmailService():
         email = os.getenv(Email)
         email_password = os.getenv(Email_Password)
 
-        yag = yagmail.SMTP(email, email_password)
+        self.yag = yagmail.SMTP(email, email_password)
 
 
     def send_email(self, reciever:str, subject, contents):
-        yag.send(reciever, subject, contents)
+        self.yag.send(reciever, subject, contents)
