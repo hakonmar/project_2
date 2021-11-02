@@ -9,4 +9,4 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD ["python", "FileNameToRun.py"]
+CMD ["python", "main.py"]
