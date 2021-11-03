@@ -1,10 +1,11 @@
 import pika
-from MerchantService import MerchantService
+from BuyerService import BuyerService
+
 
 
 def recieve(ch, method, props, body):
     id = int(body)
-    response = merchant.check_id(id)
+    response = buyer.check_id(id)
 
     ch.basic_publish(exchange='',
                     routing_key=props.reply_to,
@@ -14,7 +15,7 @@ def recieve(ch, method, props, body):
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
 
-merchant = MerchantService
+buyer = BuyerService
 connection = pika.BlockingConnection(
     pika.ConnectionParameters(host='localhost'))
 
