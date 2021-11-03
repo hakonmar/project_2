@@ -13,3 +13,12 @@ class MerchantService():
             True
         else:
             False
+
+    def check_discount(self, id:int, discount:float):
+        for line in self.db_file:
+            line_split = line.split(';')
+            if line_split[0] == id:
+                if float(line_split[1]) >= discount:
+                    return True
+                else:
+                    return False
