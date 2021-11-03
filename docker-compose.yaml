@@ -3,29 +3,32 @@ services:
   order-service:
     build: ./OrderService
     volumes:
-      - ./OrderService:/app/order
+      - ./OrderService:/app
     depends_on:
     - rabbitmq
 
   payment-service:
+    build: ./PaymentService
     volumes:
-      - ./PaymentService:/app/payment
+      - ./PaymentService:/app
 
   merchant-service:
+    build: ./MerchantService
     volumes:
       - ./MerchantService:/app/merchant
 
   inventory-service:
+    build: ./InventoryService
     volumes:
       - ./InventoryService:/app/inventory
 
   email-service:
+    build: ./EmailService
     volumes:
       - ./EmailService:/app/email
-    depends_on:
-      - yagmail
 
   buyer-service:
+    build: ./BuyerService
     volumes:
       - ./BuyerService:/app/buyer
 
