@@ -45,7 +45,7 @@ class OrderService():
 
 
     def send_event(self, request, order_id):
-        sender.sender_check()
+        pass
 
 
     def  save_order(self, request:dict) -> int:
@@ -59,20 +59,20 @@ class OrderService():
 
 
     def merchant_checker(self, id) -> bool:
-        pass
+        sender.call(id, 'rpc_queue_merch_check')
 
     def buyer_checker(self, id) -> bool:
-        pass
+        sender.call(id, 'rpc_queue_buyer_check')
 
     def product_checker(self, id) -> bool:
-        pass
+        sender.call(id, 'rpc_queue_product_check')
 
     def sold_out_checker(self, id)  -> bool:
-        pass
+        sender.call(id, 'rpc_queue_sold_out_check')
 
     def merchant_has_product_checker(self, prodid, merchid)  -> bool:
-        pass
+        sender.call(id, 'rpc_queue_merch_prod_check')
 
     def discount_checker(self, id) -> bool:
-        pass
+        sender.call(id, 'rpc_queue_discount_check')
 
