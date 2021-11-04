@@ -22,3 +22,9 @@ class BuyerService():
     def new_buyer(self, name, email):
         id = self.next_id
         self.next_id += 1
+
+    def get_buyer_info(self, id) -> str:
+        for line in self.db_file:
+            line_split = line.split(';')
+            if int(line_split[0]) == id:
+                return line

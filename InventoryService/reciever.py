@@ -38,6 +38,17 @@ def recieve3(ch, method, props, body):
                     body=str(response))
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
+def recieve4(ch, method, props, body):
+    id = int(body)
+    response = inventory.get_prod_info(id)
+
+    ch.basic_publish(exchange='',
+                    routing_key=props.reply_to,
+                    properties=pika.BasicProperties(correlation_id = \
+                                                        props.correlation_id),
+                    body=str(response))
+    ch.basic_ack(delivery_tag=method.delivery_tag)
+
 
 
 inventory = InventoryService()
@@ -47,6 +58,7 @@ connection = pika.BlockingConnection(
 channel = connection.channel()
 channel2 = connection.channel()
 channel3 = connection.channel()
+channel4 = connection.channel()
 
 channel.queue_declare(queue='rpc_queue_product_check')
 
@@ -69,3 +81,10 @@ channel3.basic_qos(prefetch_count=1)
 channel3.basic_consume(queue='rpc_queue_merch_prod_check', on_message_callback=recieve3())
 
 channel3.start_consuming()
+
+channel4.queue_declare(queue='rpc_queue_prod_info')
+
+channel4.basic_qos(prefetch_count=1)
+channel4.basic_consume(queue='rpc_queue_prod_info', on_message_callback=recieve4())
+
+channel4.start_consuming()
