@@ -57,11 +57,15 @@ class OrderService():
         db_file.close()
         return id
 
+
     def get_email_buyer(self, id) -> str:
-        pass
+        return sender.call(id, 'rpc_queue_email_buy')
 
     def get_email_merchant(self, id) -> str:
-        pass
+        return sender.call(id, 'rpc_queue_email_merch')
+
+    def get_prod_info(self, id) -> list:
+        return sender.call(id, 'rpc_queue_prod_info').split(';')
 
 
     def merchant_checker(self, id) -> bool:

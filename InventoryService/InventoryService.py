@@ -38,6 +38,11 @@ class InventoryService():
                 else:
                     return False
     
+    def get_prod_info(self, id:int) -> str:
+        for line in self.db_file:
+            line_split = line.split(';')
+            if int(line_split[0]) == id:
+                return line
 
     def restock(self, id, amount):
         for line in self.db_file:

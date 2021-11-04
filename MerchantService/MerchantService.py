@@ -24,3 +24,9 @@ class MerchantService():
                     return True
                 else:
                     return False
+    
+    def get_merch_info(self, id):
+        for line in self.db_file:
+            line_split = line.split(';')
+            if int(line_split[0]) == id:
+                return line
