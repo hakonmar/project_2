@@ -3,31 +3,45 @@ services:
   order-service:
     build: ./OrderService
     volumes:
-      - ./OrderService:/app/order
+      - ./OrderService:/app
+      - order-data:/app/data
     depends_on:
     - rabbitmq
+    ports:
+      - ?
 
   payment-service:
+    build: ./PaymentService
     volumes:
-      - ./PaymentService:/app/payment
+      - ./PaymentService:/app
+      - payment-data:/app/data
 
   merchant-service:
+    build: ./MerchantService
     volumes:
       - ./MerchantService:/app/merchant
+      - merchant-data:/app/data
+    ports:
+      - ?
 
   inventory-service:
+    build: ./InventoryService
     volumes:
       - ./InventoryService:/app/inventory
+      - inventory-data:/app/data
 
   email-service:
+    build: ./EmailService
     volumes:
       - ./EmailService:/app/email
-    depends_on:
-      - yagmail
 
   buyer-service:
+    build: ./BuyerService
     volumes:
       - ./BuyerService:/app/buyer
+      - buyer-data:/app/data
+    ports:
+      - ?
 
   rabbitmq:
     - rabbitmq-management
@@ -35,4 +49,8 @@ services:
       -
 
 volumes:
-  # TODO
+  - order-data
+  - payment-data
+  - merchant-data
+  - inventory-data
+  - buyer-data
