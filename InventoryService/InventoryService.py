@@ -50,8 +50,11 @@ class InventoryService():
             if line_split[0] == str(id):
                 pass
 
-    def reserve_product(self, id):
-        pass
+    def product_bought(self, prod_id):
+        for line in self.db_file:
+            line=line.split(";")
+            if line[0] == prod_id:
+                line[1]-=1
 
 
 

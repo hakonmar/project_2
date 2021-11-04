@@ -20,7 +20,7 @@ def callback(ch, method, properties, body):
     buyer_email = bodysplit[8]
     merchant_email = bodysplit[9]
     email_service = EmailService()
-    email_service.order_created_email(order_id, prod_name, total_price, buyer_email, merchant_email)
+    EmailService().order_created_email(order_id, prod_name, total_price, buyer_email, merchant_email)
 
 
 
