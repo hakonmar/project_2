@@ -16,8 +16,10 @@ def callback(ch, method, properties, body):
     bodysplit = body.split(";")
     order_id = bodysplit[0]
     payment_result=bodysplit[1]
+    buyer = bodysplit[2]
+    merchant = bodysplit[3]
     email_service = EmailService()
-    EmailService().payment_email(order_id, payment_result)
+    EmailService().payment_email(order_id, payment_result, buyer, merchant)
 
 
 
