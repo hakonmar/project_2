@@ -18,7 +18,7 @@ def recieve(ch, method, props, body):
 
 def recieve2(ch, method, props, body):
     id = int(body)
-    response = inventory.check_id(id)
+    response = inventory.check_sold_out(id)
 
     ch.basic_publish(exchange='',
                     routing_key=props.reply_to,
