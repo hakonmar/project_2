@@ -8,8 +8,9 @@ class OrderService():
     # Place a order:
     #Order validation
     def place_order(self, request: dict):
-        if self.order_validation(request):
-            pass
+        id = self.order_validation(request)
+        if id>=0:
+            self.send_event(request, id)
 
 
     def order_validation(self, request: dict):
@@ -22,26 +23,25 @@ class OrderService():
                                 # add order to txt file
                                 order_id = self.save_order(request)
                                 # return 201 status code with id
-                                self.send_event(request, order_id)
-                                return True
+                                return order_id
                             else:
                                 # return 400 HTTP Status Code with "Merchant does not allow discount"
-                                return False
+                                return -1
                         else:
                             #return 400 HTTP Status Code with "Product does not belong to merchant"
-                            return False
+                            return -1
                     else:
                         #Return  400 HTTP Status Code with "Product is sold out"
-                        return False
+                        return -1
                 else:
                     #Return  400 HTTP Status Code with "Product does not exist"
-                    return False
+                    return -1
             else:
                 #Return  400 HTTP Status Code with "Buyer does not exist"
-                return False
+                return -1
         else:
             #Return  400 HTTP Status Code with "Merchant does not exist"
-            return False
+            return -1
 
 
     def send_event(self, request, order_id):

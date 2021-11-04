@@ -22,3 +22,8 @@ class MerchantService():
                     return True
                 else:
                     return False
+
+    def get_merchant_email(self, id):
+        for line in self.db_file:
+            if line[0]==id:
+                return line[4] #If column 5 holds email information

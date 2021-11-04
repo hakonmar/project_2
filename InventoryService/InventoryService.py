@@ -33,5 +33,8 @@ class InventoryService():
                 else:
                     return False
 
+    def reserve_product(self, id):
+        pass
+
 
 
