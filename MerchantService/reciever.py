@@ -28,7 +28,7 @@ def recieve2(ch, method, props, body:str):
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
 
-merchant = MerchantService
+merchant = MerchantService()
 connection = pika.BlockingConnection(
     pika.ConnectionParameters(host='localhost'))
 

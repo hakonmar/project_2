@@ -15,7 +15,7 @@ def recieve(ch, method, props, body):
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
 
-buyer = BuyerService
+buyer = BuyerService()
 connection = pika.BlockingConnection(
     pika.ConnectionParameters(host='localhost'))
 
