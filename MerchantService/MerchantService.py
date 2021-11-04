@@ -30,3 +30,10 @@ class MerchantService():
             line_split = line.split(';')
             if int(line_split[0]) == id:
                 return line
+    
+    def new_merchant(self, id, discount, email, name):
+        self.db_file.append('\n{};{};{};{}'.format(id, discount, email, name))
+        db_file_obj = open('MerchantData.txt', 'w')
+        db_file_obj.writelines(self.db_file)
+        self.db_file = db_file_obj.readline()
+        db_file_obj.close()

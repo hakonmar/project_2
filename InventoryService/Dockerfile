@@ -9,4 +9,4 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD ["python", "InventoryService.py"]
+CMD ["python", "reciever.py"]

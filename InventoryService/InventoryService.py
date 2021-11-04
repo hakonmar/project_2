@@ -45,10 +45,24 @@ class InventoryService():
                 return line
 
     def restock(self, id, amount):
-        for line in self.db_file:
-            line_split = line.split(';')
-            if line_split[0] == str(id):
-                pass
+        """Add the amount to the current stock of the product with the id"""
+        line = self.db_file[id-1]
+        line_split = line.split(';')
+        new_amount = int(line_split[1]) + int(amount)
+        line_split[1] = new_amount
+        line = ';'.join(line_split)
+        self.db_file[id-1] = line
+        db_file_obj = open('InventoryData.txt', 'w')
+        db_file_obj.writelines(self.db_file)
+        self.db_file = db_file_obj.readline()
+        db_file_obj.close()
+
+    def new_prod(self, id, amount, merchantid, reserved_amount):
+        self.db_file.append('\n{};{};{};{};{}'.format(id, amount, merchantid, reserved_amount))
+        db_file_obj = open('InventoryData.txt', 'w')
+        db_file_obj.writelines(self.db_file)
+        self.db_file = db_file_obj.readline()
+        db_file_obj.close()
 
     def reserve_product(self, id):
         pass

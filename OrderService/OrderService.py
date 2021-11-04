@@ -59,10 +59,10 @@ class OrderService():
 
 
     def get_email_buyer(self, id) -> str:
-        return sender.call(id, 'rpc_queue_email_buy')
+        return sender.call(id, 'rpc_queue_email_buy').split(';')
 
     def get_email_merchant(self, id) -> str:
-        return sender.call(id, 'rpc_queue_email_merch')
+        return sender.call(id, 'rpc_queue_email_merch').split(';')
 
     def get_prod_info(self, id) -> list:
         return sender.call(id, 'rpc_queue_prod_info').split(';')
