@@ -53,9 +53,15 @@ class OrderService():
         id = 1
         for _ in db_file:
             id+=1
-        db_file.write("{},{},{},{},{},{},{},{},{}".format(id, request["productID"], request["merchantID"], request["buyerID"], request["creditCard"]["cardNumber"], request["creditCard"]["expirationMonth"], request["creditCard"]["expirationYear"], request["creditCard"]["cvc"], request["discount"]))
+        db_file.write("{};{};{};{};{};{};{};{};{}".format(id, request["productID"], request["merchantID"], request["buyerID"], request["creditCard"]["cardNumber"], request["creditCard"]["expirationMonth"], request["creditCard"]["expirationYear"], request["creditCard"]["cvc"], request["discount"]))
         db_file.close()
         return id
+
+    def get_email_buyer(self, id) -> str:
+        pass
+
+    def get_email_merchant(self, id) -> str:
+        pass
 
 
     def merchant_checker(self, id) -> bool:

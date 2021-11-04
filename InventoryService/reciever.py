@@ -56,16 +56,16 @@ channel.basic_consume(queue='rpc_queue_product_check', on_message_callback=recie
 # print(" [x] Awaiting RPC requests")
 channel.start_consuming()
 
-channel2.queue_declare(queue='rpc_queue_product_check')
+channel2.queue_declare(queue='rpc_queue_sold_out_check')
 
 channel2.basic_qos(prefetch_count=1)
-channel2.basic_consume(queue='rpc_queue_product_check', on_message_callback=recieve2())
+channel2.basic_consume(queue='rpc_queue_sold_out_check', on_message_callback=recieve2())
 
 channel2.start_consuming()
 
-channel3.queue_declare(queue='rpc_queue_product_check')
+channel3.queue_declare(queue='rpc_queue_merch_prod_check')
 
 channel3.basic_qos(prefetch_count=1)
-channel3.basic_consume(queue='rpc_queue_product_check', on_message_callback=recieve3())
+channel3.basic_consume(queue='rpc_queue_merch_prod_check', on_message_callback=recieve3())
 
 channel3.start_consuming()

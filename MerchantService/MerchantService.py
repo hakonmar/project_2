@@ -3,7 +3,9 @@
 
 class MerchantService():
     def __init__(self) -> None:
-        self.db_file = open("MerchantData.txt", "r+")
+        db_file_obj = open("MerchantData.txt", "r+")
+        self.db_file = db_file_obj.readlines()
+        db_file_obj.close()
         self.next_id = 1
         for _ in self.db_file:
             self.next_id += 1
