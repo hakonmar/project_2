@@ -1,5 +1,6 @@
 import pika
-from EmailService import *
+from PaymentService import *
+from fanout import *
 
 connection = pika.BlockingConnection(
     pika.ConnectionParameters(host='localhost'))
@@ -15,12 +16,12 @@ channel.queue_bind(exchange='fanout1', queue=queue_name)
 def callback(ch, method, properties, body):
     bodysplit = body.split(";")
     order_id = bodysplit[0]
-    prod_name = bodysplit[6]
-    total_price = bodysplit[7]
-    buyer_email = bodysplit[8]
-    merchant_email = bodysplit[9]
-    email_service = EmailService()
-    EmailService().order_created_email(order_id, prod_name, total_price, buyer_email, merchant_email)
+    credit_card_info = bodysplit[4]
+    fanout = fanout()
+    string = credit_card_info.join(";")
+    payment_result = payment_check(credit_card_info)
+    fanout.call(string)
+
 
 
 
