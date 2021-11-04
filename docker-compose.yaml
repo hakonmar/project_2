@@ -6,6 +6,8 @@ services:
       - ./OrderService:/app
     depends_on:
     - rabbitmq
+    ports:
+      - ?
 
   payment-service:
     build: ./PaymentService
@@ -16,6 +18,8 @@ services:
     build: ./MerchantService
     volumes:
       - ./MerchantService:/app/merchant
+    ports:
+      - ?
 
   inventory-service:
     build: ./InventoryService
@@ -31,6 +35,8 @@ services:
     build: ./BuyerService
     volumes:
       - ./BuyerService:/app/buyer
+    ports:
+      - ?
 
   rabbitmq:
     - rabbitmq-management
