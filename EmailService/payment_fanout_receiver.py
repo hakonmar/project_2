@@ -15,9 +15,9 @@ channel.queue_bind(exchange='fanout2', queue=queue_name)
 def callback(ch, method, properties, body):
     bodysplit = body.split(";")
     order_id = bodysplit[0]
-    payment_result=bodysplit[1]
     buyer = bodysplit[2]
     merchant = bodysplit[3]
+    payment_result=bodysplit[4]
     email_service = EmailService()
     EmailService().payment_email(order_id, payment_result, buyer, merchant)
 
