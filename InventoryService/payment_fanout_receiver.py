@@ -16,8 +16,8 @@ def callback(ch, method, properties, body):
     bodysplit = body.split(";")
     payment_service = InventoryService()()
     order_id = bodysplit[0]
+    prod_id=bodysplit[1]
     payment_result=bodysplit[4]
-    prod_id=bodysplit[5]
     if payment_result==1:
         payment_service.product_bought(prod_id)
 

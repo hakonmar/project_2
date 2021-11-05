@@ -15,10 +15,10 @@ channel.queue_bind(exchange='fanout1', queue=queue_name)
 def callback(ch, method, properties, body):
     bodysplit = body.split(";")
     order_id = bodysplit[0]
-    prod_name = bodysplit[6]
-    total_price = bodysplit[7]
-    buyer_email = bodysplit[8]
-    merchant_email = bodysplit[9]
+    prod_name = bodysplit[9]
+    total_price = bodysplit[10]
+    buyer_email = bodysplit[11]
+    merchant_email = bodysplit[12]
     email_service = EmailService()
     email_service.order_created_email(order_id, prod_name, total_price, buyer_email, merchant_email)
 

@@ -12,7 +12,7 @@ class fanout():
 
 
 
-    def call(self, string:str, key:str):
-        self.channel.basic_publish(exchange='fanout1', routing_key=key, body=string)
+    def call(self, string:str):
+        self.channel.basic_publish(exchange='fanout1', routing_key="", body=string)
         print(" [x] Sent %r" % string)
         self.connection.close()
