@@ -1,5 +1,5 @@
 from sender import sender
-
+from fanout import *
 
 class OrderService():
     def __init__(self) -> None:
@@ -9,8 +9,36 @@ class OrderService():
     #Order validation
     def place_order(self, request: dict):
         id = self.order_validation(request)
+
+        string = []
+        string.append(str(id))
+        string.append(request["productID"])
+        string.append(request["merchantID"])
+        string.append(request["buyerID"])
+        string.append(request["creditCard"]["cardNumber"])
+        string.append(request["creditCard"]["expirationMonth"])
+        string.append(request["creditCard"]["expirationYear"])
+        string.append(request["creditCard"]["cvc"])
+        string.append(request["discount"])
+
+        prod_info = get_prod_info(request["productID"])
+        prod_info.split(";")
+        prod_price = prod_info[4]
+        prod_name = prod_info[5]
+        string.append(prod_name)
+        total_price = float(prod_price)*float(request["discount"])
+        total_price=str(total_price)
+        string.append(total_price)
+
+        buyer_email = get_email_buyer
+        string.append(buyer_email)
+
+        merchant_email = get_email_merchant
+        string.append(merchant_email)
+
+        string.join(";")
         if id>=0:
-            self.send_event(request, id)
+            self.send_event(string)
 
 
     def order_validation(self, request: dict):
@@ -26,6 +54,7 @@ class OrderService():
                                 return order_id
                             else:
                                 # return 400 HTTP Status Code with "Merchant does not allow discount"
+                                
                                 return -1
                         else:
                             #return 400 HTTP Status Code with "Product does not belong to merchant"
@@ -44,8 +73,9 @@ class OrderService():
             return -1
 
 
-    def send_event(self, request, order_id):
-        pass
+    def send_event(self, string):
+        fanout = fanout()
+        fanout.call(string)
 
 
     def  save_order(self, request:dict) -> int:

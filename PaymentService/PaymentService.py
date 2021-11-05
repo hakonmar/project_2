@@ -1,11 +1,5 @@
 from fanout import *
 
-def paymentservice(order_id, credit_card_info):
-    fanout = fanout()
-    payment_result=payment_check(credit_card_info)
-    string = f"{order_id};{payment_result}"
-    fanout.call(string)
-
 def payment_check(credit_card_info):
     credit_card_info = credit_card_info.split(";")
     if luhn_check(credit_card_info[0])==True:
