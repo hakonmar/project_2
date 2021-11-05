@@ -22,6 +22,11 @@ class BuyerService():
     def new_buyer(self, name, email):
         id = self.next_id
         self.next_id += 1
+        self.db_file.append('\n{};{};{}'.format(id, name, email))
+        db_file_obj = open('BuyerData.txt', 'w')
+        db_file_obj.writelines(self.db_file)
+        self.db_file = db_file_obj.readline()
+        db_file_obj.close()
 
     def get_buyer_info(self, id) -> str:
         for line in self.db_file:

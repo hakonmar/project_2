@@ -57,8 +57,10 @@ class InventoryService():
         self.db_file = db_file_obj.readline()
         db_file_obj.close()
 
-    def new_prod(self, id, amount, merchantid, reserved_amount):
-        self.db_file.append('\n{};{};{};{};{}'.format(id, amount, merchantid, reserved_amount))
+    def new_prod(self, amount, merchantid, reserved_amount, price, name):
+        id = self.next_id
+        self.next_id +=1
+        self.db_file.append('\n{};{};{};{};{}'.format(id, amount, merchantid, reserved_amount, price, name))
         db_file_obj = open('InventoryData.txt', 'w')
         db_file_obj.writelines(self.db_file)
         self.db_file = db_file_obj.readline()
